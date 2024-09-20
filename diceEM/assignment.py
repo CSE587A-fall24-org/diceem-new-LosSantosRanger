@@ -110,20 +110,10 @@ def e_step(experiment_data: List[NDArray[np.int_]],
     if len(bag_of_dice.dice) != 2:
         raise ValueError("The bag of dice must contain exactly 2 dice.")
 
-    # Iterate over each draw in the experiment data
     for draw in experiment_data:
-        # Convert draw from NumPy array to list[int]
         draw_list = draw.tolist()
-
-        # Convert dice list[Die] to tuple[Die
-
-        # Compute the posterior probability for Die 1
         posterior_prob_die_1 = dice_posterior(draw_list, bag_of_dice)
-
-        # The posterior probability for Die 2 is simply 1 - posterior of Die 1
         posterior_prob_die_2 = 1 - posterior_prob_die_1
-
-        # Update the expected counts for each die based on the posterior probabilities
         expected_counts[0, :len(draw)] += posterior_prob_die_1 * draw
         expected_counts[1, :len(draw)] += posterior_prob_die_2 * draw
 
